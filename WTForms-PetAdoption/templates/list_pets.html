@@ -1,0 +1,26 @@
+<!--pet picture/name-->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> Available Pets </h1>
+
+<div>
+    {% for pet in pets %}
+        <div>
+            <img src = '{{pet.get_image_url()}}'>
+            <a href = "{{url_for('edit_pet', pet_id = pet.id) }}">{{pet.name}}</a>
+            <!--
+                url_for is a flask method that helps make it more flexible instead of hardcoding a path
+                <a href="/edit_pet/{{ pet.id }}">{{ pet.name }}</a>
+            --> 
+            {% if pet.available %}
+            <b>Pet is Available</b>
+            {% else %}
+            <p>Already adopted</p>
+            {% endif }
+        </div>
+    {% endfor %}
+
+</div>
+<a href = "{{url_for('add_pet')}}">Add Pet</a>
+{% endblock %}
